@@ -15,12 +15,10 @@ mediaHeader=('General Complete name' 'General Format' 'General Format profile' \
 	 'Video Transfer characteristics' 'Video Matrix coefficients' 'Audio ID' \
 	 'Audio Format' 'Audio Format/Info' 'Audio Format profile' 'Audio Codec ID' 'Audio Duration' \
 	 'Audio Bit rate mode' 'Audio Bit rate' 'Audio Channel(s)' 'Audio Channel positions' \
-	 'Audio Sampling rate' 'Audio Frame rate' 'Audio Compression mode' 'Audio Stream size' \ 
-	 'Audio Encoded date' 'Audio Tagged date' )
+	 'Audio Sampling rate' 'Audio Frame rate' 'Audio Compression mode' 'Audio Stream size' \
+	 'Audio Encoded date' 'Audio Tagged date')
 
 declare  mediaData
-echo ${mediaHeader[10]}
-echo ${#mediaHeader[@]}
 output_file="output.csv"
 extended_data=false
 single_file=true
@@ -75,7 +73,7 @@ processMetadata ()
 		count=0
 		while [[ $count -lt $mediaInfoLen ]]
 		do
-			mediaData[$count]="0\t"
+			mediaData[$count]="0"
 			#increase the count
 			count=$((count+1))
 		done
@@ -84,7 +82,6 @@ processMetadata ()
 		# Process one by one field
 		while IFS=':' read -r param value
 		do
-			count=0
 			if [[ $param = "General" || $param = "Video" || $param = "Audio" ]]; then
 				#Add headers to each field as there are common factors b/w video/audio
 				appendStr="$param "
@@ -94,17 +91,15 @@ processMetadata ()
 			if [ -z "$value" ]; then
 				continue
 			else
+				count=0
 				# Remove white space from the fields
 				param=$(echo $appendStr$param | xargs echo -n)
-				echo $param $value
 
 				while [[ $count -lt $mediaInfoLen ]]
 				do
 					if [[ $param = ${mediaHeader[$count]} ]]; then
 						value=$(echo $value | xargs echo -n)
 						mediaData[$count]=$value
-						echo "copied content ${mediaData[$count]} $value $param ${mediaHeader[$count]} $count"
-						echo ${mediaData[@]}
 						break;
 					fi
 
@@ -117,10 +112,9 @@ processMetadata ()
 		data=""
 		#dumping data into the row for the file
 		for eachColumn in "${mediaData[@]}"; do
-			echo $eachColumn
 			data+=$eachColumn"\t"
 		done
-#		echo $data
+
 		# writing the details to output file
 		echo -e $data >> $output_file
 
@@ -181,7 +175,6 @@ else
 			fileCount+=1
 		else
 			echo "'$eachMediaFile' File not available"
-		exit 1
 		fi
 	done < $2
 fi
