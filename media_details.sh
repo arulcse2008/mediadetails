@@ -18,6 +18,7 @@ mediaHeader=('General Complete name' 'General Format' 'General Format profile' '
 	 'Audio Format' 'Audio Format/Info' 'Audio Format profile' 'Audio Codec ID' 'Audio Duration' \
 	 'Audio Bit rate mode' 'Audio Bit rate' 'Audio Channel(s)' 'Audio Channel positions' \
 	 'Audio Sampling rate' 'Audio Frame rate' 'Audio Compression mode' 'Audio Stream size' \
+	 'Audio Writing library' 'Audio Encoding settings' 'Audio Default' 'Audio Forced' \
 	 'Audio Encoded date' 'Audio Tagged date')
 
 declare  mediaData
