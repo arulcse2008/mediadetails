@@ -2,9 +2,11 @@
 #set -x
 
 # Media info parameters
-mediaHeader=('General Complete name' 'General Format' 'General Format profile' \
+mediaHeader=('General Complete name' 'General Format' 'General Format profile' 'General Format Info' \
 	 'General Codec ID' 'General File size' 'General Duration' 'General Overall bit rate mode' \
-	 'General Overall bit rate' 'General Encoded date' 'General Tagged date' \
+	 'General Overall bit rate' 'General Encoded date' 'General Tagged date' 'Image Format' \
+	 'Image Format/Info' 'Image Format_Compression' 'Image Width' 'Image Height' 'Image Bit depth' \
+	 'Image Color space' 'Image Chroma subsampling' 'Image Compression mode' 'Image Stream size' \
 	 'Video ID' 'Video Format' 'Video Format/Info' 'Video Format profile' 'Video Format settings' \
 	 'Video Format settings, CABAC' 'Video Format settings, ReFrames' 'Video Codec ID' \
 	 'Video Codec ID/Info' 'Video Duration' 'Video Bit rate' 'Video Width' 'Video Height' \
@@ -82,12 +84,12 @@ processMetadata ()
 		# Process one by one field
 		while IFS=':' read -r param value
 		do
-			if [[ $param = "General" || $param = "Video" || $param = "Audio" ]]; then
+			if [[ $param = "General" || $param = "Image" || $param = "Video" || $param = "Audio" ]]; then
 				#Add headers to each field as there are common factors b/w video/audio
 				appendStr="$param "
 			fi
 
-			# skip headers like General, Video, Audio from mediainfo output
+			# skip headers like General, Video, Audio and Image from mediainfo output
 			if [ -z "$value" ]; then
 				continue
 			else
