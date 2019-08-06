@@ -2,7 +2,7 @@
 #set -x
 
 # Media info parameters
-mediaHeader=('General Complete name' 'General Format' 'General Format profile' 'General Format Info' \
+mediaHeader=('General Complete name' 'General File Type' 'General Format' 'General Format profile' 'General Format Info' \
 	 'General Codec ID' 'General File size' 'General Duration' 'General Overall bit rate mode' \
 	 'General Overall bit rate' 'General Encoded date' 'General Tagged date' 'Image Format' \
 	 'Image Format/Info' 'Image Format_Compression' 'Image Width' 'Image Height' 'Image Bit depth' \
@@ -88,6 +88,10 @@ processMetadata ()
 			if [[ $param = "General" || $param = "Image" || $param = "Video" || $param = "Audio" ]]; then
 				#Add headers to each field as there are common factors b/w video/audio
 				appendStr="$param "
+				#update file type
+				if [[ "${mediaData[1]}" = 0 && $param != "General" ]]; then
+					mediaData[1]=$param
+				fi
 			fi
 
 			# skip headers like General, Video, Audio and Image from mediainfo output
