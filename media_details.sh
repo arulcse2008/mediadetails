@@ -2,24 +2,26 @@
 #set -x
 
 # Media info parameters
-mediaHeader=('General Complete name' 'General File Type' 'General Format' 'General Format profile' 'General Format Info' \
-	 'General Codec ID' 'General File size' 'General Duration' 'General Overall bit rate mode' \
-	 'General Overall bit rate' 'General Encoded date' 'General Tagged date' 'Image Format' \
-	 'Image Format/Info' 'Image Format_Compression' 'Image Width' 'Image Height' 'Image Bit depth' \
-	 'Image Color space' 'Image Chroma subsampling' 'Image Compression mode' 'Image Stream size' \
-	 'Video ID' 'Video Format' 'Video Format/Info' 'Video Format profile' 'Video Format settings' \
-	 'Video Format settings, CABAC' 'Video Format settings, ReFrames' 'Video Codec ID' \
-	 'Video Codec ID/Info' 'Video Duration' 'Video Bit rate' 'Video Width' 'Video Height' \
-	 'Video Display aspect ratio' 'Video Frame rate mode' 'Video Frame rate' 'Video Color space' \
-	 'Video Chroma subsampling' 'Video Bit depth' 'Video Scan type' 'Video Bits/(Pixel*Frame)' \
-	 'Video Stream size' 'Video Writing library' 'Video Encoding settings' \
-	 'Video Encoded date' 'Video Tagged date' 'Video Color range' 'Video Color primaries' \
-	 'Video Transfer characteristics' 'Video Matrix coefficients' 'Audio ID' \
-	 'Audio Format' 'Audio Format/Info' 'Audio Format profile' 'Audio Codec ID' 'Audio Duration' \
-	 'Audio Bit rate mode' 'Audio Bit rate' 'Audio Channel(s)' 'Audio Channel positions' \
-	 'Audio Sampling rate' 'Audio Frame rate' 'Audio Compression mode' 'Audio Stream size' \
-	 'Audio Bit depth' 'Audio Writing library' 'Audio Encoding settings' 'Audio Default' 'Audio Forced' \
-	 'Audio Encoded date' 'Audio Tagged date')
+mediaHeader=('General Complete name' 'General File Type' 'General Format' 'General Format profile' 'General Format Info'\
+	 'General Codec ID' 'General File size' 'General Duration' 'General Overall bit rate mode'\
+	 'General Overall bit rate' 'General Encoded date' 'General Tagged date' 'Image Format'\
+	 'Image Format/Info' 'Image Format_Compression' 'Image Width' 'Image Height' 'Image Bit depth'\
+	 'Image Color space' 'Image Chroma subsampling' 'Image Compression mode' 'Image Stream size'\
+	 'Video ID' 'Video Format' 'Video Format/Info' 'Video Format profile' 'Video Format settings'\
+	 'Video Format settings, CABAC' 'Video Format settings, ReFrames' 'Video Codec ID'\
+	 'Video Codec ID/Info' 'Video Duration' 'Video Bit rate' 'Video Width' 'Video Height'\
+	 'Video Display aspect ratio' 'Video Frame rate mode' 'Video Frame rate' 'Video Color space'\
+	 'Video Chroma subsampling' 'Video Bit depth' 'Video Scan type' 'Video Bits/(Pixel*Frame)'\
+	 'Video Stream size' 'Video Writing library' 'Video Encoding settings'\
+	 'Video Encoded date' 'Video Tagged date' 'Video Color range' 'Video Color primaries'\
+	 'Video Transfer characteristics' 'Video Matrix coefficients' 'Audio ID'\
+	 'Audio Format' 'Audio Format/Info' 'Audio Format profile' 'Audio Codec ID' 'Audio Duration'\
+	 'Audio Bit rate mode' 'Audio Bit rate' 'Audio Channel(s)' 'Audio Channel positions'\
+	 'Audio Sampling rate' 'Audio Frame rate' 'Audio Compression mode' 'Audio Stream size'\
+	 'Audio Bit depth' 'Audio Writing library' 'Audio Encoding settings' 'Audio Default' 'Audio Forced'\
+	 'Audio Encoded date' 'Audio Tagged date' 'Text ID' 'Text Format' 'Text Codec ID'\
+	 'Text Codec ID/Info' 'Text Duration' 'Text Bit rate' 'Text Count of elements' 'Text Stream size'\
+	 'Text Title' 'Text Default' 'Text Forced')
 
 declare  mediaData
 output_file="output.csv"
@@ -85,7 +87,7 @@ processMetadata ()
 		# Process one by one field
 		while IFS=':' read -r param value
 		do
-			if [[ $param = "General" || $param = "Image" || $param = "Video" || $param = "Audio" ]]; then
+			if [[ $param = "General" || $param = "Image" || $param = "Video" || $param = "Audio" || $param = "Text" ]]; then
 				#Add headers to each field as there are common factors b/w video/audio
 				appendStr="$param "
 				#update file type
